@@ -12,7 +12,6 @@ noRightClick.addEventListener("contextmenu", e => e.preventDefault());
 var minesAroundCount;
 var gBoard = [];
 var gMines = [];
-var timer;
 var gGame = {
     isOn: true,
     shownCount: 0,
@@ -45,21 +44,6 @@ function chooseLevel(size,minesAmount) {
     restartGame();
 }
 
-function createMines(board, num) {
-    for (var idx = 0; idx < num; idx++) {
-        var i = getRandomInt(0, board.length);
-        var j = getRandomInt(0, board.length);
-        if (board[i][j].isMine) {
-            idx--;
-            continue
-        }
-        board[i][j] = {
-            isMine: true,
-            isMarked: false,
-            type: MINE
-        }
-    }
-}
 
 
 function buildBoard(size) {
@@ -90,8 +74,7 @@ function renderBoard(board) {
     for (var i = 0; i < board.length; i++) {
         strHTML += '<tr>';
         for (var j = 0; j < board[i].length; j++) {
-            var cell = board[i][j];
-            var className = `cell cell_${i}_${j}`;
+            var className = `cell cell${gLevel.SIZE} cell_${i}_${j}`;
             strHTML += `<td class=" ${className}" onclick="cellClicked(this,${i},${j})"  onmousedown="onButtonClick(${i},${j}, this)"> ${WALL} </td>`;
         }
 
@@ -112,6 +95,7 @@ function restartGame() {
         markedCount: 0,
         secsPassed: 0
     }
+    document.querySelector('.restart').innerText = '😀'
     initGame()
 }
 function restartClock() {
@@ -123,15 +107,30 @@ function restartClock() {
     secDisplay = '00';
     milSecDisplay = '00';
     document.querySelector(".timer").innerText = minDisplay + ':' + secDisplay + ':' + milSecDisplay;
-
+    
 }
 
+function createMines(board, num) {
+    for (var idx = 0; idx < num; idx++) {
+        var i = getRandomInt(0, board.length);
+        var j = getRandomInt(0, board.length);
+        if (board[i][j].isMine) {
+            idx--;
+            continue
+        }
+        board[i][j] = {
+            isMine: true,
+            isMarked: false,
+            type: MINE
+        }
+    }
+}
 
 function onButtonClick(i, j, elCell) {
     if (!gGame.isOn) return;
     clickStart();
     if (event.button != 2) return
-    if (gLevel.MINES === gGame.markedCount && gBoard[i][j].isMarked === false) return;
+    // if (gLevel.MINES === gGame.markedCount && gBoard[i][j].isMarked === false) return;      disable using more flags than mines numbers.
     if (gBoard[i][j].isMarked) {
         gBoard[i][j].isMarked = false;
         elCell.innerText = WALL;
@@ -173,6 +172,7 @@ function revealEmptyCells(board, i, j) {
 
 function cellClicked(elCell, i, j) {
     if (!gGame.isOn) return;
+
     clickStart();
 
     if (gBoard[i][j].isMarked) return;
@@ -189,6 +189,8 @@ function checkGameOver(i, j) {
         gGame.isOn = false;
         revealAllMines();
         document.querySelector('.restart').innerText = '☹';
+        document.querySelector(`.cell_${i}_${j}`).style.backgroundColor =  'red' 
+        console.log( document.querySelector(`.cell_${i}_${j}`).style)
         return ;
     }
     var emptyCells = gLevel.SIZE * gLevel.SIZE - gLevel.MINES
@@ -199,10 +201,6 @@ function checkGameOver(i, j) {
         return true
     }
 }
-
-function cellMarked(elCell) { }
-
-
 
 function revealAllMines() {
     for (var i = 0; i < gBoard.length; i++) {
