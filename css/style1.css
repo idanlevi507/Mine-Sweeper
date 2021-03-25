@@ -1,0 +1,33 @@
+h1 {
+    margin: auto;
+    text-align: center;
+}
+
+
+.board-container {
+    background-color: 'black';
+    width: 350px;
+    height: 220px;
+    margin: auto;
+   
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    font-size: 1.5em;
+    background-color: rgb(201, 176, 176);
+    cursor: pointer;
+}
+
+.timer {
+    background-color: red;
+    width: 100px;
+    height: 75px;
+    font-size:25px;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+    padding: 5px;
+}
