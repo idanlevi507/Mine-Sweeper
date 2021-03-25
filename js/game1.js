@@ -39,9 +39,11 @@ function initGame() {
 
 }
 
-// function chooseLevel() {
-
-// }
+function chooseLevel(size,minesAmount) {
+    gLevel.SIZE = size;
+    gLevel.MINES = minesAmount;
+    restartGame();
+}
 
 function createMines(board, num) {
     for (var idx = 0; idx < num; idx++) {
@@ -186,11 +188,12 @@ function checkGameOver(i, j) {
         stopWatch()
         gGame.isOn = false;
         revealAllMines();
-        return alert('Game Over');
+        document.querySelector('.restart').innerText = '☹';
+        return ;
     }
     var emptyCells = gLevel.SIZE * gLevel.SIZE - gLevel.MINES
     if (gGame.shownCount === emptyCells && gLevel.MINES === gGame.markedCount) {
-        alert('winner!');
+        document.querySelector('.restart').innerText = '🤩'
         stopWatch()
         gGame.isOn = false;
         return true
