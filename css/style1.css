@@ -1,33 +1,51 @@
+body {
+    background-image: url('/pics/imgbin-minesweeper-land-mine-soldier-green-soldiers-CVg92GQa1buhQYyqK5GV5DSxs.jpg');
+    background-repeat:no-repeat ;
+    background-position: 50%;
+}
+
 h1 {
     margin: auto;
     text-align: center;
 }
 
+button {
+    width: 90px;
+    height: 88px;
+    font-size: 50px;
+    text-align: center;
+    margin: auto;
+   cursor: pointer;
+}
 
 .board-container {
-    background-color: 'black';
     width: 350px;
     height: 220px;
+    margin: auto;   
+}
+table {
     margin: auto;
-   
 }
 
 .cell {
-    width: 80px;
-    height: 80px;
+    width: 40px;
+    height: 40px;
     text-align: center;
     font-size: 1.5em;
     background-color: rgb(201, 176, 176);
     cursor: pointer;
 }
+.cell:hover {
+    background-color: rgb(77, 68, 68);
+}
 
 .timer {
-    background-color: red;
+    
     width: 100px;
-    height: 75px;
+    height: 40px;
     font-size:25px;
     font-weight: bold;
     text-align: center;
     margin: auto;
-    padding: 5px;
+    padding: 10px;
 }

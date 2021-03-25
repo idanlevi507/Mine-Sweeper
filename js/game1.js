@@ -20,8 +20,8 @@ var gGame = {
     secsPassed: 0
 }
 var gLevel = {
-    SIZE: 8,
-    MINES: 12,
+    SIZE: 4,
+    MINES: 2,
 }
 
 var milSec = 0;
@@ -100,6 +100,29 @@ function renderBoard(board) {
     elContainer.innerHTML = strHTML;
 }
 
+function restartGame() {
+    restartClock()
+    gBoard = [];
+    gMines = [];
+    gGame = {
+        isOn: true,
+        shownCount: 0,
+        markedCount: 0,
+        secsPassed: 0
+    }
+    initGame()
+}
+function restartClock() {
+    stopWatch()
+    milSec = 0;
+    sec = 0;
+    min = 0;
+    minDisplay = '00';
+    secDisplay = '00';
+    milSecDisplay = '00';
+    document.querySelector(".timer").innerText = minDisplay + ':' + secDisplay + ':' + milSecDisplay;
+
+}
 
 
 function onButtonClick(i, j, elCell) {
@@ -120,7 +143,6 @@ function onButtonClick(i, j, elCell) {
 }
 
 function revealEmptyCells(board, i, j) {
-    // debugger
     var cellI = i;
     var cellJ = j;
     for (i = cellI - 1; i <= cellI + 1; i++) {
@@ -131,12 +153,14 @@ function revealEmptyCells(board, i, j) {
             if (board[i][j].isShown) continue;
             if (board[i][j].minesAroundCount === 0) {
                 board[i][j].isShown = true;
+                gGame.shownCount++;
                 document.querySelector(`.cell_${i}_${j}`).innerText = board[i][j].minesAroundCount
                 revealEmptyCells(board, i, j);
                 continue;
             }
             if (board[i][j].minesAroundCount > 0) {
                 board[i][j].isShown = true;
+                gGame.shownCount++;
                 document.querySelector(`.cell_${i}_${j}`).innerText = board[i][j].minesAroundCount
                 continue
             }
