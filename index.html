@@ -6,25 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style1.css">
-    <title>Document</title>
+    <title>Mine-Sweeper</title>
 </head>
 
 <body class="body" onload="initGame()">
 <div class="header">
     <h1> Mine Sweeper</h1>
-    <div class="button"><button class='button restart' onclick="restartGame()">😀</button></div>
+    <div class="button"><button class='button restart' style ="cursor: pointer;" onclick="restartGame()">😀</button></div>
     <div class="levels">
-        <button onclick="chooseLevel(4,2)">Beginner</button>
-        <button onclick="chooseLevel(8,12)">Medium</button>
-        <button onclick="chooseLevel(12,30)">Hard</button>
+        <button style ="cursor: pointer;" onclick="chooseLevel(4,2,'beginner')">Beginner</button>
+        <button style ="cursor: pointer;" onclick="chooseLevel(8,12,'medium')">Medium</button>
+        <button style ="cursor: pointer;" onclick="chooseLevel(12,30,'hard')">Hard</button>
     </div>
-    <div class="timer">00:00</div>
+    <div class="timer">00:00:00</div>
+    <div class="timer" id="best-time"> Best: 00:00:00</div> 
 </div>
 <div class="board-container"> 
 
 </div>
 
-<script src="js/util1.js"></script>
+<!-- <script src="js/util1.js"></script> -->
 <script src="js/game1.js"></script>
 
 </body>
